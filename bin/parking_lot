@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+const readline = require('readline')
+const ParseInput = require('../src/ParseInput')
+const Command = require('../src/Command')
+
+if(ParseInput.isFile()) {
+    const command = ParseInput.getFileContent()
+    if(command) 
+        command.forEach((line) => {
+            ParseInput.parse(line)
+            Command(ParseInput.getCommand(), ParseInput.getArguments(0), ParseInput.getArguments(1))
+        })
+    else 
+        console.log('file inputs is empty content')
+} else {
+
+    const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+    terminal: false
+    });
+
+    rl.on('line', function(line) {
+        ParseInput.parse(line)
+        console.log(ParseInput.getCommand());
+        Command(ParseInput.getCommand(), ParseInput.getArguments(0), ParseInput.getArguments(1))
+    })
+
+}
+
+
+

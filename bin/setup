@@ -1,3 +1,4 @@
 #!/bin/bash
 npm -v
-cd ../ && npm install
+npm install
+npm run test
